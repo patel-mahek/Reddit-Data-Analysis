@@ -11,8 +11,13 @@ import pandas as pd
 from datetime import datetime
 from statistics import mean, stdev
 import spacy
+from load_dotenv import load_dotenv
+import os   
+load_dotenv()
+MONGO_USERNAME= os.environ.get("MONGO_USERNAME")
+MONGO_PASSWORD= os.environ.get("MONGO_PASSWORD")
 
-client = MongoClient("mongodb+srv://mahekpatel2612:W1ZcEtXDJ03AOtht@datatrial.5fxil.mongodb.net/")
+client = MongoClient(f"mongodb+srv://{MONGO_USERNAME}:{MONGO_PASSWORD}@datatrial.5fxil.mongodb.net/")
 db = client["OriginalJSON"]
 collection = db["JSONSIMPPL"]
 

@@ -3,9 +3,15 @@ import pymongo
 import schedule
 import time
 from datetime import datetime
+from dotenv import load_dotenv  
+import os
+load_dotenv()
+MONGO_USERNAME= os.environ.get("MONGO_USERNAME")
+MONGO_PASSWORD= os.environ.get("MONGO_PASSWORD")
 
 # Connect to MongoDB
-client = pymongo.MongoClient("mongodb+srv://mahekpatel2612:W1ZcEtXDJ03AOtht@datatrial.5fxil.mongodb.net/")
+
+client = MongoClient(f"mongodb+srv://{MONGO_USERNAME}:{MONGO_PASSWORD}@datatrial.5fxil.mongodb.net/")
 db = client["OriginalJSON"]
 collection = db["JSONSIMPPL"]
 

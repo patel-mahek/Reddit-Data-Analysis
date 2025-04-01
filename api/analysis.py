@@ -1,8 +1,9 @@
 import os
 import glob
 import google.generativeai as genai
-
-GOOGLE_API_KEY = "AIzaSyA5Yx2Ro2yl6Obsos3XjOuU2qVUtUlRWPA" # Replace with your actual API key
+from dotenv import load_dotenv
+load_dotenv()   
+GOOGLE_API_KEY = os.environ.get("GEMINI_API_KEY")
 genai.configure(api_key=GOOGLE_API_KEY)
 model = genai.GenerativeModel('gemini-2.0-flash') # or 'gemini-2.0-pro'
 def analyze_batch_files(directory: str) -> str:

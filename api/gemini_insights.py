@@ -5,12 +5,12 @@
 # from tqdm import tqdm
 # from bson import ObjectId
 # # MongoDB Configuration (Replace with your actual credentials)
-# MONGODB_URI = "mongodb+srv://mahekpatel2612:W1ZcEtXDJ03AOtht@datatrial.5fxil.mongodb.net/"  # Replace with your MongoDB URI
+# MONGODB_URI = f"mongodb+srv://{MONGO_USERNAME}:{MONGO_PASSWORD}@datatrial.5fxil.mongodb.net/")
 # DATABASE_NAME = "OriginalJSON"  # Replace with your database name
 # COLLECTION_NAME = "JSONSIMPPL"  # Replace with your collection name
 
 # # Gemini API Configuration (Replace with your API key)
-# GOOGLE_API_KEY = "AIzaSyBmUfmA9alBsBgYARkekoeCbL2LGJsAY6k"
+# GOOGLE_API_KEY = os.environ.get("GEMINI_API_KEY")
 # genai.configure(api_key=GOOGLE_API_KEY)
 # model = genai.GenerativeModel('gemini-2.0-flash')  # Use gemini-pro for text analysis
 
@@ -158,16 +158,23 @@ from chromadb.utils import embedding_functions
 # import openai # REMOVE OPEN AI import
 import google.generativeai as genai # ADD Gemini import
 import datetime
+from dotenv import load_dotenv
+load_dotenv()
+MONGO_USERNAME= os.environ.get("MONGO_USERNAME")
+MONGO_PASSWORD= os.environ.get("MONGO_PASSWORD")
 
 # Configure logging
 logging.basicConfig(filename='gemini_analysis.log', level=logging.ERROR,
                     format='%(asctime)s - %(levelname)s - %(message)s')
 
-MONGO_URI = "mongodb+srv://mahekpatel2612:W1ZcEtXDJ03AOtht@datatrial.5fxil.mongodb.net/"
+MONGO_USERNAME= os.environ.get("MONGO_USERNAME")
+MONGO_PASSWORD= os.environ.get("MONGO_PASSWORD")
+
+MONGO_URI = f"mongodb+srv://{MONGO_USERNAME}:{MONGO_PASSWORD}@datatrial.5fxil.mongodb.net/"
 DATABASE_NAME = "OriginalJSON"
 COLLECTION_NAME = "JSONSIMPPL"
 
-GOOGLE_API_KEY = "AIzaSyA5Yx2Ro2yl6Obsos3XjOuU2qVUtUlRWPA"
+GOOGLE_API_KEY = os.environ.get("GEMINI_API_KEY")
 genai.configure(api_key=GOOGLE_API_KEY)
 model = genai.GenerativeModel('gemini-2.0-flash')
 
@@ -473,7 +480,7 @@ if __name__ == "__main__":
 # DATABASE_NAME = "OriginalJSON"
 # COLLECTION_NAME = "JSONSIMPPL"
 
-# GOOGLE_API_KEY = "AIzaSyA5Yx2Ro2yl6Obsos3XjOuU2qVUtUlRWPA"
+# GOOGLE_API_KEY = os.environ.get("GEMINI_API_KEY")
 # genai.configure(api_key=GOOGLE_API_KEY)
 # model = genai.GenerativeModel('gemini-2.0-flash')
 

@@ -6,14 +6,16 @@
 # import google.generativeai as genai
 # import time
 # import numpy as np
-
+# from load_dotenv import load_dotenv
+# import os
+# load_dotenv()
 # nltk.download("vader_lexicon")
 # sia = SentimentIntensityAnalyzer()
 
-# genai.configure(api_key="AIzaSyBWlDLDIv0ENjBtzAYpDHJNJyEjDL9jwHM")
+# genai.configure(api_key= os.environ.get("GEMINI_API_KEY"))
 # model = genai.GenerativeModel("gemini-1.5-flash")
 
-# client = MongoClient("mongodb+srv://mahekpatel2612:W1ZcEtXDJ03AOtht@datatrial.5fxil.mongodb.net/")
+# client = MongoClient(f"mongodb+srv://{MONGO_USERNAME}:{MONGO_PASSWORD}@datatrial.5fxil.mongodb.net/")
 # db = client["OriginalJSON"]
 # collection = db["JSONSIMPPL"]
 
@@ -118,15 +120,22 @@ import google.generativeai as genai
 import time
 import numpy as np
 from typing import List
+from dotenv import load_dotenv 
+import os
+load_dotenv()
+MONGO_USERNAME= os.environ.get("MONGO_USERNAME")
+MONGO_PASSWORD= os.environ.get("MONGO_PASSWORD")
 
 nltk.download("vader_lexicon")
 sia = SentimentIntensityAnalyzer()
 
 # Replace with your actual API key! DO NOT HARDCODE IN PRODUCTION!
-genai.configure(api_key="AIzaSyBmUfmA9alBsBgYARkekoeCbL2LGJsAY6k")
+genai.configure(api_key= os.environ.get("GEMINI_API_KEY"))
 model = genai.GenerativeModel("gemini-2.0-flash")
 
-client = MongoClient("mongodb+srv://mahekpatel2612:W1ZcEtXDJ03AOtht@datatrial.5fxil.mongodb.net/")  # Replace password!
+MONGO_USERNAME = os.environ.get("MONGO_USERNAME")
+MONGO_PASSWORD = os.environ.get("MONGO_PASSWORD")
+client = MongoClient(f"mongodb+srv://{MONGO_USERNAME}:{MONGO_PASSWORD}@datatrial.5fxil.mongodb.net/")
 db = client["OriginalJSON"]
 collection = db["JSONSIMPPL"]
 
