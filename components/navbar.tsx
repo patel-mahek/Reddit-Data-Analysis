@@ -2,7 +2,7 @@
 
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { BarChart2, BookOpen, MessageSquare } from "lucide-react"
+import { BarChart2, BookOpen, MessageSquare, Globe } from "lucide-react"
 import { cn } from "@/lib/utils"
 
 const navItems = [
@@ -20,6 +20,11 @@ const navItems = [
     name: "Chat",
     href: "/chat",
     icon: MessageSquare,
+  },
+  {
+    name: "Subreddits",
+    href: "/subreddits",
+    icon: Globe,
   },
 ]
 
@@ -84,4 +89,3 @@ export default function Navbar() {
     </nav>
   )
 }
-

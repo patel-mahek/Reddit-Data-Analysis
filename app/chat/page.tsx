@@ -1,7 +1,6 @@
 "use client"
 
 import type React from "react"
-
 import { useState, useRef, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -38,44 +37,55 @@ export default function ChatPage() {
     scrollToBottom()
   }, [messages])
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    if (!input.trim()) return
-
-    // Add user message
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!input.trim()) return;
+  
     const userMessage: Message = {
       id: Date.now().toString(),
       content: input,
       role: "user",
       timestamp: new Date(),
-    }
-    setMessages((prev) => [...prev, userMessage])
-    setInput("")
-    setIsLoading(true)
-
-    // Simulate AI response after a delay
-    setTimeout(() => {
-      const responses = [
-        "I understand your question. Let me think about that...",
-        "That's an interesting point! Here's what I think...",
-        "I'd be happy to help with that. Here's some information...",
-        "Great question! The answer depends on several factors...",
-        "I've researched this topic before. Here's what I found...",
-      ]
-
-      const randomResponse = responses[Math.floor(Math.random() * responses.length)]
-
+    };
+  
+    setMessages((prev) => [...prev, userMessage]);
+    setInput("");
+    setIsLoading(true);
+  
+    try {
+      const res = await fetch("http://localhost:8000/ask", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ query: input }),
+      });
+  
+      const data = await res.json();
+  
       const assistantMessage: Message = {
         id: (Date.now() + 1).toString(),
-        content: randomResponse,
+        content: Array.isArray(data.answer)
+          ? data.answer.map((item: any) => JSON.stringify(item)).join("\n")
+          : data.answer,
         role: "assistant",
         timestamp: new Date(),
-      }
-
-      setMessages((prev) => [...prev, assistantMessage])
-      setIsLoading(false)
-    }, 1000)
-  }
+      };
+  
+      setMessages((prev) => [...prev, assistantMessage]);
+    } catch (error) {
+      console.error("Failed to fetch from backend:", error);
+      setMessages((prev) => [
+        ...prev,
+        {
+          id: (Date.now() + 1).toString(),
+          content: "Error connecting to backend.",
+          role: "assistant",
+          timestamp: new Date(),
+        },
+      ]);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   const formatTime = (date: Date) => {
     return date.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })
@@ -100,7 +110,24 @@ export default function ChatPage() {
                     message.role === "user" ? "bg-primary text-primary-foreground" : "bg-muted",
                   )}
                 >
-                  <div className="break-words">{message.content}</div>
+                  <div className="break-words whitespace-pre-wrap text-sm">
+                      {typeof message.content === "string" ? (
+                        message.content
+                      ) : Array.isArray(message.content) ? (
+                        message.content.map((item, idx) => (
+                          <div key={idx}>{JSON.stringify(item, null, 2)}</div>
+                        ))
+                      ) : typeof message.content === "object" ? (
+                        Object.entries(message.content).map(([key, value]) => (
+                          <div key={key}>
+                            <strong>{key}:</strong> {String(value)}
+                          </div>
+                        ))
+                      ) : (
+                        String(message.content)
+                      )}
+                    </div>
+
                   <div
                     className={cn(
                       "text-xs mt-1",
@@ -158,4 +185,3 @@ export default function ChatPage() {
     </div>
   )
 }
-

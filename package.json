@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "fastapi-dev": "python -m uvicorn api.index:app --reload",
+    "fastapi-dev": "python -m uvicorn api.code:app --reload",
     "next-dev": "next dev",
     "dev": "concurrently \"npm run fastapi-dev\" \"npm run next-dev\"",
     "build": "next build",
