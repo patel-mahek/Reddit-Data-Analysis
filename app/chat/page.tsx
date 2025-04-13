@@ -18,6 +18,10 @@ type Message = {
 
 export default function ChatPage() {
   const [input, setInput] = useState("")
+  let base_url = "https://simppl-assignment.vercel.app"
+  if (process.env.NODE_ENV === "development") {
+    base_url = "http://localhost:3000"
+  }
   const [messages, setMessages] = useState<Message[]>([
     {
       id: "1",
@@ -51,9 +55,9 @@ export default function ChatPage() {
     setMessages((prev) => [...prev, userMessage]);
     setInput("");
     setIsLoading(true);
-  
+    console.log(base_url)
     try {
-      const res = await fetch("http://localhost:8000/ask", {
+      const res = await fetch(`${base_url}/api/ask`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ query: input }),

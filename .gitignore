@@ -31,3 +31,9 @@ api/batch_analyses
 
 package-lock.json
 
+api/top_authors.html
+api/post_trends.html
+api/gemini_summary.txt
+api/narrative_story_with_examples.txt
+api/top_subreddits.html
+api/author_network.html

@@ -47,6 +47,11 @@ def preprocess(df):
         df["text"] = df["title"].fillna("") + " " + df["selftext"].fillna("")
         df["word_count"] = df["text"].apply(lambda x: len(str(x).split()))
         df["domain"] = df["url"].apply(lambda x: x.split('/')[2] if pd.notna(x) and "http" in x else None)
+        least_datetime = df["datetime"].min()
+        highest_datetime = df["datetime"].max()
+        
+        print(f"Least Datetime: {least_datetime}")
+        print(f"Highest Datetime: {highest_datetime}")
         return df
     except Exception as e:
         print(f"Error preprocessing data: {e}")

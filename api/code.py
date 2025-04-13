@@ -74,7 +74,7 @@ def fetch_reddit_posts(subreddit_name: str, limit: int = 10):
                 posts.append(post_data) 
     return posts  
 
-@app.post("/api/posts")
+@app.post("/posts")
 def get_posts(req: SubredditRequest):
     subreddits = req.subreddits
     all_posts = []
@@ -231,9 +231,7 @@ async def ask(request: QueryRequest):
             )
             response = f"The following narrative summary has been generated based on the data:\n\n{narrative}"
         else:
-            response = (
-                "I'm sorry, I couldn't understand your query.Can you be more specific about it?"
-            )
+            response = "I'm sorry, I couldn't understand your query.Can you be more specific about it?"
 
         return {"answer": response}
     except Exception as e:
