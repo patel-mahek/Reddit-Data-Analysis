@@ -154,7 +154,7 @@ function PostCarousel({ posts }: { posts: RedditPost[] }) {
     const [selectedSubreddit, setSelectedSubreddit] = useState<string>("");
     const [allPosts, setAllPosts] = useState<RedditPost[]>([]);
     const [activeTab, setActiveTab] = useState<string>("all");
-    let base_url = "https://simppl-backend.onrender.com/"
+    let base_url = "https://simppl-backend.onrender.com"
     if (process.env.NODE_ENV === "development") {
       base_url = "http://localhost:3000"
     }
