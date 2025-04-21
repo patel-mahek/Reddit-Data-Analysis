@@ -154,7 +154,7 @@ function PostCarousel({ posts }: { posts: RedditPost[] }) {
     const [selectedSubreddit, setSelectedSubreddit] = useState<string>("");
     const [allPosts, setAllPosts] = useState<RedditPost[]>([]);
     const [activeTab, setActiveTab] = useState<string>("all");
-    let base_url = "https://simppl-assignment.vercel.app"
+    let base_url = "https://simppl-backend.onrender.com/"
     if (process.env.NODE_ENV === "development") {
       base_url = "http://localhost:3000"
     }
@@ -166,7 +166,7 @@ function PostCarousel({ posts }: { posts: RedditPost[] }) {
       }
   
       try {
-        const res = await fetch(`${base_url}/api/posts`, {
+        const res = await fetch(`${base_url}/posts`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

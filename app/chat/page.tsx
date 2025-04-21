@@ -11,14 +11,14 @@ import { cn } from "@/lib/utils"
 
 type Message = {
   id: string
-  content: string
+  content: string|any[]
   role: "user" | "assistant"
   timestamp: Date
 }
 
 export default function ChatPage() {
   const [input, setInput] = useState("")
-  let base_url = "https://simppl-assignment.vercel.app"
+  let base_url = "https://simppl-backend.onrender.com"
   if (process.env.NODE_ENV === "development") {
     base_url = "http://localhost:3000"
   }
@@ -57,7 +57,7 @@ export default function ChatPage() {
     setIsLoading(true);
     console.log(base_url)
     try {
-      const res = await fetch(`${base_url}/api/ask`, {
+      const res = await fetch(`${base_url}/ask`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ query: input }),

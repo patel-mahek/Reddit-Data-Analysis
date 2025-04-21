@@ -1,1 +1,0 @@
-next.js + shadcn + fastapi + tailwind starter
